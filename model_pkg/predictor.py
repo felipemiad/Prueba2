@@ -3,11 +3,16 @@ import pandas as pd
 import joblib
 from typing import Dict, Any
 
-# Cargar el modelo previamente entrenado
-MODEL_PATH = "model_pkg/model_icfes.pkl"  # Cambia esto a la ruta correcta de tu modelo
-model = joblib.load(MODEL_PATH)
+# Ruta del modelo previamente entrenado
+MODEL_PATH = "model_pkg/model_icfes.pkl"  # Asegúrate de que este archivo exista en la ubicación correcta
 
-# Variables finales necesarias para el modelo
+# Cargar el modelo
+try:
+    model = joblib.load(MODEL_PATH)
+except Exception as e:
+    raise ValueError(f"Error cargando el modelo: {str(e)}")
+
+# Variables necesarias para el modelo
 VARIABLES_FINALES = [
     "FAMI_ESTRATOVIVIENDA",
     "FAMI_PERSONASHOGAR",
