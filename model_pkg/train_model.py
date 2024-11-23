@@ -1,14 +1,12 @@
+import pickle
 import pandas as pd
 from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OrdinalEncoder
-import joblib
+from sklearn.model_selection import train_test_split
 
-# Ruta del archivo CSV
-DATA_PATH = "C:/Users/johan/Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/data/df_definitivo.csv"  # Cambia la ruta si es necesario
-
-# Variables finales que necesita el modelo
-VARIABLES_FINALES = [
+# Cargar datos
+df = pd.read_csv("data/df_definitivo.csv")
+variables_finales = [
     "FAMI_ESTRATOVIVIENDA",
     "FAMI_PERSONASHOGAR",
     "FAMI_TIENEINTERNET",
@@ -20,24 +18,17 @@ VARIABLES_FINALES = [
     "COLE_GENERO",
 ]
 
-# Cargar el dataset
-df = pd.read_csv(DATA_PATH)
-
-# Dividir los datos
-X = df[VARIABLES_FINALES]
+X = df[variables_finales]
 y = df["PUNT_GLOBAL"]
 
-# Codificar variables categóricas
+X_train, _, y_train, _ = train_test_split(X, y, test_size=0.3, random_state=0)
+
+# Preprocesar y entrenar modelo
 encoder = OrdinalEncoder()
-X_encoded = encoder.fit_transform(X)
+X_train_enc = encoder.fit_transform(X_train)
+model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=3)
+model.fit(X_train_enc, y_train)
 
-# Dividir en conjunto de entrenamiento y prueba
-X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, test_size=0.2, random_state=42)
-
-# Entrenar el modelo
-model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
-model.fit(X_train, y_train)
-
-# Guardar el modelo y el encoder
-joblib.dump(model, "C:/Users/johan/Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/model_pkg/model_icfes.pkl")
-joblib.dump(encoder, "C:/Users/johan/Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/model_pkg/encoder_icfes.pkl")
+# Guardar modelo y preprocesador
+with open("model_pkg/model.pkl", "wb") as model_file:
+    pickle.dump((model, encoder), model_file)
