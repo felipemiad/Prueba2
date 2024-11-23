@@ -26,27 +26,18 @@ VARIABLES_FINALES = [
 ]
 
 def make_prediction(input_data: pd.DataFrame) -> Dict[str, Any]:
-    """
-    Realiza una predicción usando el modelo cargado.
-
-    Parameters
-    ----------
-    input_data : pd.DataFrame
-        Datos de entrada en formato DataFrame.
-
-    Returns
-    -------
-    Dict[str, Any]
-        Un diccionario que contiene las predicciones y posibles errores.
-    """
     result = {"predictions": None, "errors": None}
 
     try:
-        # Validar que las columnas necesarias están presentes en el DataFrame
+        # Verificar columnas requeridas
         missing_cols = set(VARIABLES_FINALES) - set(input_data.columns)
         if missing_cols:
             result["errors"] = f"Faltan las columnas requeridas: {missing_cols}"
             return result
+
+        # Convertir datos categóricos a numéricos si es necesario
+        # Por ejemplo:
+        input_data["ESTU_GENERO"] = input_data["ESTU_GENERO"].map({"F": 0, "M": 1})
 
         # Realizar predicciones
         predictions = model.predict(input_data[VARIABLES_FINALES])
