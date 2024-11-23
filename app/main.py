@@ -1,31 +1,23 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from app.api import api_router
+from fastapi import FastAPI, APIRouter
 from app.config import settings, setup_app_logging
+from app.api import api_router
 
-# Configurar logging
-setup_app_logging(config=settings)
+# Configurar el logging
+setup_app_logging()
 
-# Crear la aplicación FastAPI
 app = FastAPI(
-    title="ICFES API",
-    description="API para realizar predicciones con el modelo del ICFES",
-    version="1.0.0",
+    title=settings.PROJECT_NAME,
+    openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )
 
-# Configurar CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Cambiar según las necesidades
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Rutas principales
+root_router = APIRouter()
 
-# Incluir las rutas
-app.include_router(api_router)
 
-# Ruta de prueba
-@app.get("/")
-async def root():
-    return {"message": "¡Bienvenido a la API del ICFES!"}
+@root_router.get("/")
+def index():
+    return {"message": "Bienvenido a la API de ICFES"}
+
+# Incluir rutas
+app.include_router(api_router, prefix=settings.API_V1_STR)
+app.include_router(root_router)

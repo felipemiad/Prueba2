@@ -26,3 +26,4 @@ def setup_app_logging():
 
 # Instancia de configuración
 settings = Settings()
+
