@@ -54,11 +54,10 @@ app.layout = html.Div([
     html.Div(id="prediction_result", style={"marginTop": "20px", "textAlign": "center"})
 ])
 
----
+
 
 ### 2. Definir la interacción con la API
 
-```python
 # Función callback para procesar los datos y obtener la predicción
 @app.callback(
     Output("prediction_result", "children"),
@@ -113,10 +112,10 @@ def obtener_prediccion(n_clicks, estrato, personas_hogar, internet, horas_trabaj
             ])
     return ""
 
----
+
 
 ### 3. Correr la aplicación Dash
 
-```python
+
 if __name__ == "__main__":
     app.run_server(debug=True, host="0.0.0.0", port=8050)
