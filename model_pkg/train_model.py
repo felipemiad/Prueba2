@@ -5,7 +5,7 @@ from sklearn.preprocessing import OrdinalEncoder
 import joblib
 
 # Ruta del archivo CSV
-DATA_PATH = "df_definitivo.csv"  # Cambia la ruta si es necesario
+DATA_PATH = "model_pkg/df_definitivo.csv"  # Cambia la ruta si es necesario
 
 # Variables finales que necesita el modelo
 VARIABLES_FINALES = [
