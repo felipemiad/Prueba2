@@ -95,7 +95,7 @@ def obtener_prediccion(n_clicks, estrato, personas_hogar, internet, horas_trabaj
 
         try:
             # Hacer la solicitud POST a la API
-            response = requests.post("http://54.226.170.98:8000/api/v1/predict", json=payload)
+            response = requests.post("http://54.144.217.11:8000/api/v1/predict", json=payload)
 
             if response.status_code == 200:
                 prediction = response.json()["predictions"][0]
