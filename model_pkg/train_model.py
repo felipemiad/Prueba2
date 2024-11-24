@@ -5,7 +5,7 @@ from sklearn.preprocessing import OrdinalEncoder
 import joblib
 
 # Ruta del archivo CSV
-DATA_PATH = "C:/Users/johan/Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/data/df_definitivo.csv"  # Cambia la ruta si es necesario
+DATA_PATH = "df_definitivo.csv"  # Cambia la ruta si es necesario
 
 # Variables finales que necesita el modelo
 VARIABLES_FINALES = [
@@ -39,5 +39,5 @@ model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth
 model.fit(X_train, y_train)
 
 # Guardar el modelo y el encoder
-joblib.dump(model, "C:/Users/johan\Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/model_pkg/model_icfes.pkl")
-joblib.dump(encoder, "C:/Users/johan\Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/model_pkg/encoder_icfes.pkl")
+joblib.dump(model, "model_pkg/model_icfes.pkl")
+joblib.dump(encoder, "model_pkg/encoder_icfes.pkl")
