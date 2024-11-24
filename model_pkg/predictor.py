@@ -57,7 +57,7 @@ def make_prediction(input_data: pd.DataFrame) -> Dict[str, Any]:
         logger.info(f"Datos después de transformar a tipo 'str':\n{input_data.head()}")
         logger.info(f"Tipos de datos después de transformar:\n{input_data.dtypes}")
 
-        # Codificar las variables categóricas
+        # Codificar las variables categóricas, categorías desconocidas serán -1
         input_data_encoded = encoder.transform(input_data[VARIABLES_FINALES])
         logger.info(f"Datos codificados:\n{input_data_encoded}")
 

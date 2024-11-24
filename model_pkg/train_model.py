@@ -28,7 +28,10 @@ X = df[VARIABLES_FINALES]
 y = df["PUNT_GLOBAL"]
 
 # Codificar variables categóricas
-encoder = OrdinalEncoder()
+from sklearn.preprocessing import OrdinalEncoder
+
+# Configurar el encoder
+encoder = OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1)
 X_encoded = encoder.fit_transform(X)
 
 # Dividir en conjunto de entrenamiento y prueba
