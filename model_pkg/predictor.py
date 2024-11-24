@@ -3,8 +3,8 @@ import pandas as pd
 from typing import Dict, Any
 
 # Ruta del modelo y encoder
-MODEL_PATH = "C:/Users/johan\Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/model_pkg/model_icfes.pkl"
-ENCODER_PATH = "C:/Users/johan\Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/model_pkg/encoder_icfes.pkl"
+MODEL_PATH = "C:/Users/johan/Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/model_pkg/model_icfes.pkl"
+ENCODER_PATH = "C:/Users/johan/Documents/Maestria/Despliegue Analitica/ProyectoIcfes/icfes-api/model_pkg/encoder_icfes.pkl"
 
 # Cargar modelo y encoder
 model = joblib.load(MODEL_PATH)
